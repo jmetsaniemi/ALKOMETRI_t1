@@ -10,6 +10,7 @@ export default function App()  {
   const [weight, setWeight] = useState(0)
   const [gender, setGender] = useState('Male')
   const [bottle, setBottle] = useState(0)
+  const [hour, setHour] = useState(0)
 
   const genders =[
     {label: 'Male', value: 'Male'},
@@ -17,6 +18,17 @@ export default function App()  {
   ]
 
   const bottles = [
+    { label: '1', value: '1' },
+    { label: '2', value: '2' },
+    { label: '3', value: '3' },
+    { label: '4', value: '4' },
+    { label: '5', value: '5' },
+    { label: '6', value: '6' },
+    { label: '7', value: '7' },
+    { label: '8', value: '8' },
+
+  ];
+  const hours = [
     { label: '1', value: '1' },
     { label: '2', value: '2' },
     { label: '3', value: '3' },
@@ -37,11 +49,12 @@ export default function App()  {
   return (
     <SafeAreaView>
     <View style={styles.container}>
-      <Text>ALCOMETER</Text>
+      <Text style={styles.text}>ALCOMETER</Text>
 
-      <Text>Weight</Text>
+      <Text style={styles.text}>Weight</Text>
 
       <TextInput
+      style={styles.pickers}
       placeholder='Paino...'
       onChangeText={text => setWeight(text)}
       value={weight}
@@ -50,6 +63,7 @@ export default function App()  {
 
 <Text>Gender</Text>
   <RadioButtonRN
+  style={styles.pickers}
     outerWidth={30}
           innerWidth={20}
           borderWidth={1}
@@ -69,7 +83,11 @@ export default function App()  {
           
         </View>
 
+        <Text style={styles.text}>Bottles drunk</Text>
+
         <Dropdown
+        style={styles.pickers}
+        placeholder='Bottles...'
         labelField="label"
         valueField="value"
         value={bottle}
@@ -78,6 +96,22 @@ export default function App()  {
         }}
 
         data= {bottles}
+        
+        />
+
+        <Text style={styles.text}>Hours passed</Text>
+
+        <Dropdown
+        style={styles.pickers}
+        placeholder='Hours...'
+        labelField="label"
+        valueField="value"
+        value={hour}
+        onChange={item => {
+          setHour(item.value);
+        }}
+
+        data= {hours}
         
         />
   
@@ -89,9 +123,26 @@ export default function App()  {
 
 const styles = StyleSheet.create({
   container: {
-    padding: 10,
-    backgroundColor: '#fff',
+    padding: 25,
+    backgroundColor: '#B7ECF7',
     paddingTop: Constants.statusBarHeight,
+    alignContent: 'flex-start',
+    
+    
+  },
+
+  pickers: {
+    borderRadius: 10,
+    backgroundColor: '#fff',
+    alignContent: 'flex-start',
+    backgroundColor: 'white'
+    
+  },
+
+  text: {
+    borderRadius: 10,
+    fontSize: 24,
+    color: '#323D5C'
     
   },
 });
