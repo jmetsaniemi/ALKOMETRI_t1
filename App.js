@@ -1,13 +1,15 @@
 import React, { Component } from 'react';
 import { useState } from 'react';
-import { StyleSheet, Text, TextInput, View, Radiobutton, Picker, RadioForm, SafeAreaView} from 'react-native'; 
+import { StyleSheet, Text, TextInput, View, Radiobutton, Picker, RadioForm, SafeAreaView, Button} from 'react-native'; 
 import RadioButtonRN from 'radio-buttons-react-native';
 import Constants from 'expo-constants';
 import { Dropdown } from 'react-native-element-dropdown';
+import bottlesComponent from './components/bottlesComponent';
 
 export default function App()  {
 
   const [weight, setWeight] = useState(0)
+  const [promilles, setPromilles] = useState(0)
   const [gender, setGender] = useState('Male')
   const [bottle, setBottle] = useState(0)
   const [hour, setHour] = useState(0)
@@ -18,25 +20,25 @@ export default function App()  {
   ]
 
   const bottles = [
-    { label: '1', value: '1' },
-    { label: '2', value: '2' },
-    { label: '3', value: '3' },
-    { label: '4', value: '4' },
-    { label: '5', value: '5' },
-    { label: '6', value: '6' },
-    { label: '7', value: '7' },
-    { label: '8', value: '8' },
+    { label: '1', value: 1 },
+    { label: '2', value: 2 },
+    { label: '3', value: 3 },
+    { label: '4', value: 4 },
+    { label: '5', value: 5 },
+    { label: '6', value: 6 },
+    { label: '7', value: 7 },
+    { label: '8', value: 8 },
 
   ];
   const hours = [
-    { label: '1', value: '1' },
-    { label: '2', value: '2' },
-    { label: '3', value: '3' },
-    { label: '4', value: '4' },
-    { label: '5', value: '5' },
-    { label: '6', value: '6' },
-    { label: '7', value: '7' },
-    { label: '8', value: '8' },
+    { label: '1', value: 1 },
+    { label: '2', value: 2 },
+    { label: '3', value: 3 },
+    { label: '4', value: 4 },
+    { label: '5', value: 5 },
+    { label: '6', value: 6 },
+    { label: '7', value: 7 },
+    { label: '8', value: 8 },
 
   ];
 
@@ -45,6 +47,14 @@ export default function App()  {
   function pressGender(i) {
     setGender(i);
   }
+
+  const calculation = (() =>{
+
+    
+
+    setPromilles(hour*bottle)
+
+  })
 
   return (
     <SafeAreaView>
@@ -99,6 +109,7 @@ export default function App()  {
         
         />
 
+
         <Text style={styles.text}>Hours passed</Text>
 
         <Dropdown
@@ -114,6 +125,17 @@ export default function App()  {
         data= {hours}
         
         />
+
+        <Text>{promilles}</Text>
+
+        <Button 
+        onPress={calculation}
+        title="You drunk?"
+        color="#841584"
+        
+        ></Button>
+        
+        
   
 
       </View>
@@ -132,10 +154,12 @@ const styles = StyleSheet.create({
   },
 
   pickers: {
+    padding: 20,
     borderRadius: 10,
     backgroundColor: '#fff',
     alignContent: 'flex-start',
-    backgroundColor: 'white'
+    backgroundColor: 'white',
+    
     
   },
 
