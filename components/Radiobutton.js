@@ -4,7 +4,13 @@ import Styles from './styles'
 
 export default function Radiobutton({options, onPress}) {
 
+    //tämä komponentti luotu tunneilla olleen ohjeen mukaan
+
+    
+
   const [value, setValue] = useState('Male');
+
+  //funktio valinnan käsittelyyn. Muuttuja päivittyy ja välittyy komponentin käyttökohteelle
 
   const handlePress = (selected) => {
     setValue(selected);
@@ -12,6 +18,8 @@ export default function Radiobutton({options, onPress}) {
   }
 
   return (
+    //välitetään muuttujat propseina ja renderöidään radiobuttonit. Eli tässä tapauksessa taulukossa on kaksi labelia ja valueta, joista muodostuu 2 painettavaa buttonia labeleineen
+    //tyylit tuodaan styles.js:stä ja näillä muotoillaan labeliteksti ja pressable komponentit
     <>
     {options.map((item) => (
       <View key={item.value} style={Styles.radiobuttonstyles}>
