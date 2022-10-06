@@ -1,18 +1,19 @@
 import React, { Component } from 'react';
 import { useState } from 'react';
-import { StyleSheet, Text, TextInput, View, Radiobutton, Picker, RadioForm, SafeAreaView, Button} from 'react-native'; 
-import RadioButtonRN from 'radio-buttons-react-native';
-import Constants from 'expo-constants';
+import { StyleSheet, Text, TextInput, View, SafeAreaView, Button, ScrollView, Alert} from 'react-native'; 
+import Radiobutton from './components/Radiobutton';
 import { Dropdown } from 'react-native-element-dropdown';
-import bottlesComponent from './components/bottlesComponent';
+import styles from './styles';
+
 
 export default function App()  {
 
   const [weight, setWeight] = useState(0)
   const [promilles, setPromilles] = useState(0)
   const [gender, setGender] = useState('Male')
-  const [bottle, setBottle] = useState(0)
+  const [bottle, setBottle] = useState(1)
   const [hour, setHour] = useState(0)
+  let promillehelper
 
   const genders =[
     {label: 'Male', value: 'Male'},
@@ -20,6 +21,7 @@ export default function App()  {
   ]
 
   const bottles = [
+    { label: '0', value: 0 },
     { label: '1', value: 1 },
     { label: '2', value: 2 },
     { label: '3', value: 3 },
@@ -31,6 +33,7 @@ export default function App()  {
 
   ];
   const hours = [
+    { label: '0', value: 0 },
     { label: '1', value: 1 },
     { label: '2', value: 2 },
     { label: '3', value: 3 },
@@ -42,24 +45,57 @@ export default function App()  {
 
   ];
 
+  const calculation = () =>{
+    if (bottle > 0) {
+      if (weight === 0){
+        Alert.alert(
+          "Enter weight before pressing calculate!"
+        )
+      }else if ( hour === 0 ) {
+        
+          Alert.alert(
+            "Enter amount of time passed!"
+          )
+        
+      }else if (gender === 'Male'){
+        let bottleamount = (bottle/3)
+        let grams = bottleamount*8*4.5
+        let burning = weight/10
+        let gramsleft = grams - burning*hour
+        let maleresult = (gramsleft / (weight * 0.7)).toFixed(2)
+        promillehelper = maleresult
+        if (promillehelper < 0 ){
+          setPromilles(0)
+        }else {
+          setPromilles(promillehelper)
+        }
+      }else if (gender === 'Female'){
+        let bottleamount = (bottle/3)
+        let grams = bottleamount*8*4.5
+        let burning = weight/10
+        let gramsleft = grams - burning*hour
+        let femaleresult = (gramsleft / (weight * 0.6)).toFixed(2)
+        promillehelper = femaleresult
+        if (promillehelper < 0 ){
+          setPromilles(0)
+        }else{
+          setPromilles(promillehelper)
+          
+        }
+        
+      }
 
-
-  function pressGender(i) {
-    setGender(i);
+    }
+    
   }
 
-  const calculation = (() =>{
-
-    
-
-    setPromilles(hour*bottle)
-
-  })
+  
 
   return (
+    <ScrollView style={styles.container}>
     <SafeAreaView>
-    <View style={styles.container}>
-      <Text style={styles.text}>ALCOMETER</Text>
+    <View style={styles.containerMain}>
+      <Text style={styles.textHeader}>ALCOMETER</Text>
 
       <Text style={styles.text}>Weight</Text>
 
@@ -71,27 +107,9 @@ export default function App()  {
       keyboardType='decimal'
       />
 
-<Text>Gender</Text>
-  <RadioButtonRN
-  style={styles.pickers}
-    outerWidth={30}
-          innerWidth={20}
-          borderWidth={1}
-          data={genders}
-          color={"steelblue"}
-          onPress={pressGender}
-          wrapperStyle={{ padding: 3 }}
-        />
-        <View
-          style={{
-            marginHorizontal: 10,
-            marginVertical: 10,
-            alignItems: "center",
-            
-          }}
-        >
-          
-        </View>
+<Text style={styles.text}>Gender</Text>
+
+<Radiobutton options={genders} onPress={(value) => {setGender(value)}}/> 
 
         <Text style={styles.text}>Bottles drunk</Text>
 
@@ -126,47 +144,24 @@ export default function App()  {
         
         />
 
-        <Text>{promilles}</Text>
+        <View>
+          <Text style={styles.textresult}>{promilles} ppm</Text>
+        </View>
 
+        
         <Button 
         onPress={calculation}
         title="You drunk?"
         color="#841584"
-        
         ></Button>
+        
         
         
   
 
       </View>
       </SafeAreaView>
+      </ScrollView>
     );
-}
-
-const styles = StyleSheet.create({
-  container: {
-    padding: 25,
-    backgroundColor: '#B7ECF7',
-    paddingTop: Constants.statusBarHeight,
-    alignContent: 'flex-start',
-    
-    
-  },
-
-  pickers: {
-    padding: 20,
-    borderRadius: 10,
-    backgroundColor: '#fff',
-    alignContent: 'flex-start',
-    backgroundColor: 'white',
-    
-    
-  },
-
-  text: {
-    borderRadius: 10,
-    fontSize: 24,
-    color: '#323D5C'
-    
-  },
-});
+  
+  }
