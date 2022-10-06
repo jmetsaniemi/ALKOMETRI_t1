@@ -14,7 +14,7 @@ export default function Radiobutton({options, onPress}) {
   return (
     <>
     {options.map((item) => (
-      <View key={item.value} style={Styles.radiobuttonContainer}>
+      <View key={item.value} style={Styles.radiobuttonstyles}>
       <Text style={Styles.label}>{item.label}</Text>  
       <Pressable style={Styles.unChecked} onPress={() => handlePress(item.value)}>
         {value === item.value && <View style={Styles.checked} />}

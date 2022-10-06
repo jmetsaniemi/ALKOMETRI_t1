@@ -8,12 +8,18 @@ import styles from './styles';
 
 export default function App()  {
 
+  //luodaan tarvittavat useState-muuttujat 
+
   const [weight, setWeight] = useState(0)
   const [promilles, setPromilles] = useState(0)
   const [gender, setGender] = useState('Male')
   const [bottle, setBottle] = useState(1)
   const [hour, setHour] = useState(0)
+
+  // auttaa tarkistamaan jos promillet menevät < 0
   let promillehelper
+
+  //tarvittavien taulukoiden luonti
 
   const genders =[
     {label: 'Male', value: 'Male'},
@@ -45,18 +51,26 @@ export default function App()  {
 
   ];
 
+  /*laskukonstruktori, jossa if-lausekkeilla tarkistellaan toteutuvuvatko alkuehdot (mies/nainen) ja onko tarpeeksi tietoja syötetty sovellukseen 
+  laskutoimituksen jatkamiseksi. Konstruktoria kutsutaan Buttonilla returnin lopussa.
+*/
   const calculation = () =>{
+
+    // jos pullot yli 0
     if (bottle > 0) {
+
+      //tarkistetaan onko painoa asetettu, jos ei niin lähetetään viesti
       if (weight === 0){
         Alert.alert(
           "Enter weight before pressing calculate!"
         )
+        //jos paino asetettu, mutta tunteja ei --> lähetetään viesti
       }else if ( hour === 0 ) {
         
           Alert.alert(
             "Enter amount of time passed!"
           )
-        
+        //tarkistetaan onko kyseessä mies vai nainen ja käytetään ko. laskutapaa selvittämään promillet
       }else if (gender === 'Male'){
         let bottleamount = (bottle/3)
         let grams = bottleamount*8*4.5
@@ -64,6 +78,12 @@ export default function App()  {
         let gramsleft = grams - burning*hour
         let maleresult = (gramsleft / (weight * 0.7)).toFixed(2)
         promillehelper = maleresult
+
+         /*tallennetaan tiedot promillehelperiin, jossa tarkistetaan onko tulos alle 0 --> 
+        jos alle 0 niin asetetaan promilleiksi 0 ---> 
+        jos yli 0 niin asetetaan promilleiksi laskutulos
+        */
+       
         if (promillehelper < 0 ){
           setPromilles(0)
         }else {
@@ -76,6 +96,12 @@ export default function App()  {
         let gramsleft = grams - burning*hour
         let femaleresult = (gramsleft / (weight * 0.6)).toFixed(2)
         promillehelper = femaleresult
+
+        /*tallennetaan tiedot promillehelperiin, jossa tarkistetaan onko tulos alle 0 --> 
+        jos alle 0 niin asetetaan promilleiksi 0 ---> 
+        jos yli 0 niin asetetaan promilleiksi laskutulos
+        */
+       
         if (promillehelper < 0 ){
           setPromilles(0)
         }else{
@@ -89,7 +115,7 @@ export default function App()  {
     
   }
 
-  
+  // asetettu koko sovellus scrollviewin sisään ja luotu erillinen tyylihakemisto (styles.js) jonne eritelty eri elementit
 
   return (
     <ScrollView style={styles.container}>
