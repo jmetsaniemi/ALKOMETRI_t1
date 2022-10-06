@@ -26,7 +26,7 @@ export default StyleSheet.create({
     },
     label: {
         marginTop: 5,
-        fontSize: 16,
+        fontSize: 20,
         color: 'black',
         fontWeight: 'bold',
     }

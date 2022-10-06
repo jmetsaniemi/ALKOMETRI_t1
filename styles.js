@@ -24,7 +24,7 @@ export default StyleSheet.create({
     
   
     pickers: {
-      padding: 20,
+      padding: 15,
       fontSize: 24,
       borderRadius: 10,
       backgroundColor: '#fff',
@@ -35,17 +35,20 @@ export default StyleSheet.create({
     },
 
 
+
+
   
     text: {
         textDecorationLine: 'underline',
       borderRadius: 10,
       fontSize: 24,
-      color: '#323D5C'
+      color: '#323D5C',
+      padding: 5,
       
     },
 
     textHeader: {
-        padding: 20,
+        padding: 10,
         textDecorationLine: 'underline',
       borderRadius: 10,
       fontSize: 35,

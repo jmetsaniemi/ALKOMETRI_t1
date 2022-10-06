@@ -27,15 +27,21 @@ export default function App()  {
   ]
 
   const bottles = [
-    { label: '0', value: 0 },
-    { label: '1', value: 1 },
-    { label: '2', value: 2 },
-    { label: '3', value: 3 },
-    { label: '4', value: 4 },
-    { label: '5', value: 5 },
-    { label: '6', value: 6 },
-    { label: '7', value: 7 },
+  
+    { label: '12', value: 12 },
+    { label: '11', value: 11 },
+    { label: '10', value: 10 },
+    { label: '9', value: 9 },
     { label: '8', value: 8 },
+    { label: '7', value: 7 },
+    { label: '6', value: 6 },
+    { label: '5', value: 5 },
+    { label: '4', value: 4 },
+    { label: '3', value: 3 },
+    { label: '2', value: 2 },
+    { label: '1', value: 1 },
+    { label: '0', value: 0 },
+
 
   ];
   const hours = [
@@ -48,6 +54,10 @@ export default function App()  {
     { label: '6', value: 6 },
     { label: '7', value: 7 },
     { label: '8', value: 8 },
+    { label: '9', value: 9 },
+    { label: '10', value: 10 },
+    { label: '11', value: 11 },
+    
 
   ];
 
@@ -83,9 +93,12 @@ export default function App()  {
         jos alle 0 niin asetetaan promilleiksi 0 ---> 
         jos yli 0 niin asetetaan promilleiksi laskutulos
         */
-       
-        if (promillehelper < 0 ){
+
+        if (promillehelper < 0 || promillehelper > 999){
           setPromilles(0)
+          Alert.alert(
+            "Weight has not been entered OR the value is negative"
+          )
         }else {
           setPromilles(promillehelper)
         }
@@ -102,8 +115,11 @@ export default function App()  {
         jos yli 0 niin asetetaan promilleiksi laskutulos
         */
        
-        if (promillehelper < 0 ){
+        if (promillehelper < 0 || promillehelper > 999){
           setPromilles(0)
+          Alert.alert(
+            "Weight has not been entered OR the value is negative"
+          )
         }else{
           setPromilles(promillehelper)
           
@@ -137,9 +153,14 @@ export default function App()  {
 
 <Radiobutton options={genders} onPress={(value) => {setGender(value)}}/> 
 
-        <Text style={styles.text}>Bottles drunk</Text>
+        <Text 
+        style={styles.text}
+        >Bottles drunk (0.33 lt) 
+        </Text>
 
         <Dropdown
+        activeColor='grey'
+        maxHeight={250}
         style={styles.pickers}
         placeholder='Bottles...'
         labelField="label"
@@ -157,6 +178,8 @@ export default function App()  {
         <Text style={styles.text}>Hours passed</Text>
 
         <Dropdown
+        activeColor='grey'
+        maxHeight={250}
         style={styles.pickers}
         placeholder='Hours...'
         labelField="label"
